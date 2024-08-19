@@ -3,6 +3,7 @@ import * as webPush from 'web-push';
 
 @Injectable()
 export class AppService {
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   private subscriptions: any[] = [];
 
   constructor() {
@@ -18,15 +19,26 @@ export class AppService {
     );
   }
 
-  subscribeToPush(subscription: any) {
-    console.log('Received subscription:', subscription); // 구독 정보 확인
-    if (subscription && subscription.endpoint) {
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+subscribeToPush(subscription: any) {
+  console.log('Received subscription:', subscription); // 구독 정보 확인
+  // biome-ignore lint/complexity/useOptionalChain: <explanation>
+  if (subscription && subscription.endpoint) {
+    // 이미 존재하는 구독 정보가 있는지 확인
+    const isDuplicate = this.subscriptions.some(
+      (sub) => sub.endpoint === subscription.endpoint
+    );
+
+    if (!isDuplicate) {
       this.subscriptions.push(subscription);
       console.log('Subscription stored:', this.subscriptions); // 저장된 구독 정보 출력
     } else {
-      console.error('Invalid subscription received');
+      console.log('Duplicate subscription ignored');
     }
+  } else {
+    console.error('Invalid subscription received');
   }
+}
 
   sendPushNotification(payload: string) {
     if (this.subscriptions.length === 0) {
@@ -34,10 +46,12 @@ export class AppService {
       return;
     }
   
-    this.subscriptions.forEach(subscription => {
+    // biome-ignore lint/complexity/noForEach: <explanation>
+      this.subscriptions.forEach(subscription => {
       console.log('Sending push notification to subscription:', subscription); // 구독 정보 로그 출력
   
-      if (subscription && subscription.endpoint) {
+      // biome-ignore lint/complexity/useOptionalChain: <explanation>
+        if (subscription && subscription.endpoint) {
         webPush.sendNotification(subscription, payload).then(() => {
           console.log('Push notification sent successfully'); // 성공 로그 출력
         }).catch((error) => {
