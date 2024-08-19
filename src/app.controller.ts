@@ -16,15 +16,15 @@ export class AppController {
     return { message: 'Subscription successful' };
   }
 
-  @Post('send-push')
-  sendPushNotification() {
-    console.log('Send Push Notification API called'); // 로그 추가
-    const payload = JSON.stringify({
-      title: 'Hello World',
-      body: 'This is a test push notification!',
-    });
+  // @Post('send-push')
+  // sendPushNotification() {
+  //   console.log('Send Push Notification API called'); // 로그 추가
+  //   const payload = JSON.stringify({
+  //     title: 'Hello World',
+  //     body: 'This is a test push notification!',
+  //   });
 
-    this.appService.sendPushNotification(payload);
-    return { message: 'Push sent' };
-  }
+  //   this.appService.sendPushNotification(payload);
+  //   return { message: 'Push sent' };
+  // }
 }
