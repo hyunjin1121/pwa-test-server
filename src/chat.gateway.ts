@@ -10,7 +10,7 @@ import { AppService } from './app.service';
 
 @WebSocketGateway({
   cors: {
-    origin: 'https://d0b3-61-22-124-12.ngrok-free.app', // 허용할 클라이언트 도메인
+    origin: '*', // 허용할 클라이언트 도메인
     methods: ['GET', 'POST'], // 허용할 HTTP 메서드
     credentials: true, // 쿠키 사용 허용
   },
@@ -27,18 +27,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     console.log(`Client disconnected: ${client.id}`);
   }
 
-  // @SubscribeMessage('messageToServer')
-  // handleMessage(client: Socket, payload: { sender: string, message: string }): void {
-  //   console.log(`Message from ${payload.sender}: ${payload.message}`);
-  //   // 모든 클라이언트에게 메시지를 전송합니다.
-  //   const messages = JSON.stringify({
-  //     title: 'Hello World',
-  //     body: payload.message,
-  //   });
-
-  //   this.appService.sendPushNotification(messages)
-  //   this.server.emit('messageToClient', payload);
-  // }
   @SubscribeMessage('messageToServer')
   handleMessage(client: Socket, payload: { sender: string, message: string }): void {
     console.log(`Message from ${payload.sender}: ${payload.message}`);

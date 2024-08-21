@@ -8,8 +8,8 @@ export class AppService {
 
   constructor() {
     const vapidKeys = {
-      publicKey: 'BLMuqANzgt98IBfsEIeO1a7ZMhtKV73qqxWvn44oRhxamelcLU3jzEPXrXR9S_qy8JwfzeJzKhgCX8cvHNB7QG4',
-      privateKey: 'TVWYQVnOklzoG9LL-VpWy974cax4mW0tbXXv1j995QE',
+      publicKey: 'BK-SGSx5-Ex14UXxiYPOvdwrStOfJAG2kA9QFOAvNZFDO87AgBLMmhtj6CykFMFr9Hfhac613265R0e9yehQyoc',
+      privateKey: 'ue2JFMB1uMVidhBfgn2GsTdb12tV5Ts2QloayhEWmiM',
     };
 
     webPush.setVapidDetails(
